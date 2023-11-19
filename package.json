@@ -1,6 +1,6 @@
 {
     "scripts": {
-    "start": "node beatleService.js"
+    "start": "node mindfulKnight.js"
   },
     "dependencies": {
       "express": "^4.18.2",

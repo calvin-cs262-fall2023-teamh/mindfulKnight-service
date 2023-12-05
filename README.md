@@ -1,4 +1,4 @@
-# mindfulKnight-service
+# MindfulKnight Webservice
 
 getting things to work this time
 

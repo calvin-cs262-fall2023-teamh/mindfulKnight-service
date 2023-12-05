@@ -1,6 +1,6 @@
 # MindfulKnight Webservice
 
-getting things to work this time
+Getting things to work this time
 
 Here is the link to the dataservice
 

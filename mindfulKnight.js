@@ -121,5 +121,20 @@ function deleteUserActivity(req, res, next) {
     });
 }
 
+// Add a new route for updating time spent on the app
+router.put('/update_time', updateTimeSpent);
+
+function updateTimeSpent(req, res, next) {
+  const { userId, elapsedTime } = req.body;
+
+  // Update the user's time spent on the app
+  db.none('UPDATE users SET time_spent = time_spent + $1 WHERE user_id = $2', [elapsedTime, userId])
+    .then(() => {
+      res.sendStatus(200);
+    })
+    .catch((err) => {
+      next(err);
+    });
+}
 
 

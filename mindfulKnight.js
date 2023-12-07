@@ -65,7 +65,7 @@ function readUsers(req, res, next) {
 
 function createUser(req, res, next) {
   const { name, email, password } = req.body;
-  db.one('INSERT INTO users(name, emailAddress, password_hash, registration_date) VALUES (${name}, ${email}, ${password}, CURRENT_TIMESTAMP) RETURNING user_id', {
+  db.one('INSERT INTO users(name, emailAddress, password_hash, registration_date) VALUES (${name}, ${email}, ${password}, CURRENT_TIMESTAMP) RETURNING *', {
       name,
       email,
       password,

@@ -21,11 +21,14 @@ router.use(express.json());
 
 
 router.get('/', readHelloMessage);
+
+router.post('/create_user', createUser);
+
 router.get('/users', readUsers);
 router.get('/fidget_toys', readFidgetToys);
 router.get('/user_activity', readUserActivity);
 router.get('/user_activity/:id', readUserActivityById);
-router.post('/user_activity', createUserActivity);
+//router.post('/user_activity', createUserActivity);
 router.put('/user_activity/:id', updateUserActivity);
 router.delete('/user_activity/:id', deleteUserActivity);
 
@@ -60,6 +63,23 @@ function readUsers(req, res, next) {
 }
 
 
+function createUser(req, res, next) {
+  const { name, email, password } = req.body;
+  db.one('INSERT INTO users(name, emailAddress, password_hash, registration_date) VALUES (${name}, ${email}, ${password}, CURRENT_TIMESTAMP) RETURNING user_id', {
+      name,
+      email,
+      password,
+    })
+    .then((data) => {
+      res.send(data);
+    })
+    .catch((err) => {
+      next(err);
+    });
+}
+
+
+
 function readFidgetToys(req, res, next) {
   db.many('SELECT * FROM fidget_toys')
     .then((data) => {
@@ -92,6 +112,8 @@ function readUserActivityById(req, res, next) {
 }
 
 function createUserActivity(req, res, next) {
+  console.log('Request Body:', req.body);  // Log the request body
+
   db.one('INSERT INTO user_activity(user_id, toy_id, start_time, end_time) VALUES (${user_id}, ${toy_id}, ${start_time}, ${end_time}) RETURNING activity_id', req.body)
     .then((data) => {
       res.send(data);

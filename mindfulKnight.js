@@ -82,7 +82,7 @@ function readUsers(req, res, next) {
 
 
 function createUser(req, res, next) {
-  db.one('INSERT INTO Users(name, emailAddress, password, type, profileimage) VALUES (${name}, ${email}, ${password}, ${type}, ${profileimage}) RETURNING id', req.body)
+  db.one('INSERT INTO users(username, email, password_hash, registration_date) VALUES (${username}, ${email}, ${password}, NOW()) RETURNING user_id', req.body)
     .then((data) => {
       res.send(data);
     })

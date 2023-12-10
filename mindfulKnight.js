@@ -116,7 +116,9 @@ function readUserFromEmail(req, res, next) {
 
 
 function readUser(req, res, next) {
-  db.oneOrNone('SELECT * FROM Users WHERE email=${email}', req.params)
+  const email = req.query.email;
+
+  db.oneOrNone('SELECT * FROM Users WHERE email=${email}', { email })
     .then((data) => {
       returnDataOr404(res, data);
     })

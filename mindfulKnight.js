@@ -24,7 +24,7 @@ router.get('/', readHelloMessage);
 
 router.post('/users', createUser);
 
-router.get('/users/email', readUserFromEmail);
+router.get('/users/email/:email', readUserFromEmail);
 
 
 router.get('/users/:email', readUser);
@@ -101,10 +101,13 @@ function createUser(req, res, next) {
     });
 }
 
-function readUserFromEmail(req, res, next) {
-  const email = req.query.email;
 
-  db.oneOrNone("SELECT * FROM Users WHERE emailaddress=$1", email)
+
+
+
+
+function readUserFromEmail(req, res, next) {
+  db.oneOrNone("SELECT * FROM Users WHERE emailaddress='" + req.params.email + "'", req.params)
     .then((data) => {
       returnDataOr404(res, data);
     })
@@ -112,6 +115,13 @@ function readUserFromEmail(req, res, next) {
       next(err);
     });
 }
+
+
+
+
+
+
+
 
 
 

@@ -99,9 +99,7 @@ function createUser(req, res, next) {
 }
 
 function readUserFromEmail(req, res, next) {
-  const email = req.query.email;
-
-  db.oneOrNone("SELECT * FROM users WHERE emailaddress = $1", email)
+  db.oneOrNone("SELECT * FROM Users WHERE emailaddress='" + req.params.email + "'", req.params)
     .then((data) => {
       returnDataOr404(res, data);
     })

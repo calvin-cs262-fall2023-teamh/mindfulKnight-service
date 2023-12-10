@@ -27,7 +27,7 @@ router.post('/users', createUser);
 router.get('/users/email', readUserFromEmail);
 
 
-router.get('/users/:id', readUser);
+router.get('/users/:email', readUser);
 
 
 router.get('/users', readUsers);
@@ -116,7 +116,7 @@ function readUserFromEmail(req, res, next) {
 
 
 function readUser(req, res, next) {
-  db.oneOrNone('SELECT * FROM Users WHERE id=${id}', req.params)
+  db.oneOrNone('SELECT * FROM Users WHERE email=${email}', req.params)
     .then((data) => {
       returnDataOr404(res, data);
     })

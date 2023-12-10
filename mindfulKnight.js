@@ -82,11 +82,15 @@ function readUsers(req, res, next) {
 
 
 function createUser(req, res, next) {
+  console.log('Received data from client:', req.body);
+
   db.one('INSERT INTO users(username, email, password_hash, registration_date) VALUES (${username}, ${email}, ${password_hash}, NOW()) RETURNING user_id', req.body)
     .then((data) => {
+      console.log('Inserted user with ID:', data.user_id);
       res.send(data);
     })
     .catch((err) => {
+      console.error('Error inserting user:', err);
       next(err);
     });
 }

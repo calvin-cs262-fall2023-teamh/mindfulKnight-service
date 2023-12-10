@@ -126,9 +126,9 @@ function readUserFromEmail(req, res, next) {
 
 
 function readUser(req, res, next) {
-  const email = req.params.email;
+  const email = req.params.email.toLowerCase(); // Convert the email to lowercase
 
-  db.oneOrNone('SELECT * FROM Users WHERE email = $1', [email])
+  db.oneOrNone('SELECT * FROM Users WHERE LOWER(email) = $1', [email])
     .then((data) => {
       returnDataOr404(res, data);
     })

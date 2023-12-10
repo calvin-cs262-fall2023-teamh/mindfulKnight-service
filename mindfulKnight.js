@@ -22,7 +22,7 @@ router.use(express.json());
 
 router.get('/', readHelloMessage);
 
-router.post('/create_user', createUser);
+router.post('/users', createUser);
 
 router.get('/users', readUsers);
 router.get('/fidget_toys', readFidgetToys);
@@ -63,13 +63,26 @@ function readUsers(req, res, next) {
 }
 
 
+// function createUser(req, res, next) {
+//   const { name, email, password } = req.body;
+//   db.one('INSERT INTO users(name, emailAddress, password_hash, registration_date) VALUES (${name}, ${email}, ${password}, CURRENT_TIMESTAMP) RETURNING *', {
+//       name,
+//       email,
+//       password,
+//     })
+//     .then((data) => {
+//       res.send(data);
+//     })
+//     .catch((err) => {
+//       next(err);
+//     });
+// }
+
+
+
+
 function createUser(req, res, next) {
-  const { name, email, password } = req.body;
-  db.one('INSERT INTO users(name, emailAddress, password_hash, registration_date) VALUES (${name}, ${email}, ${password}, CURRENT_TIMESTAMP) RETURNING *', {
-      name,
-      email,
-      password,
-    })
+  db.one('INSERT INTO Users(name, emailAddress, password, type, profileimage) VALUES (${name}, ${email}, ${password}, ${type}, ${profileimage}) RETURNING id', req.body)
     .then((data) => {
       res.send(data);
     })

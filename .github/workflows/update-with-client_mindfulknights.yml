@@ -59,4 +59,4 @@ jobs:
           app-name: 'mindfulKnights'
           slot-name: 'Production'
           package: .
-          publish-profile: ${{ secrets.AZUREAPPSERVICE_PUBLISHPROFILE_310E343A28064F189E245107EAC2541A }}
+          publish-profile: ${{ secrets.AZUREAPPSERVICE_PUBLISHPROFILE_463EE111B71D4EB2AC62D0E66548A09B }}
